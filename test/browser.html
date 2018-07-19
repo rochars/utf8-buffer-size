@@ -36,8 +36,22 @@
 	
 	<!-- Run the tests -->
 	<script>
+	    var _bTestResults = {'count': 0};
+
 	    mocha.checkLeaks();
-	    mocha.run();
+	    mocha.run()
+	    	.on('pass', function(test) {
+		        _bTestResults['count'] = 1;
+		    });
+
+		// Beacon the results to Browserscope.
+		(function(document) {
+		  var testKey = 'ahBzfnVhLXByb2ZpbGVyLWhychELEgRUZXN0GICAkJOAg5EIDA';
+		  var newScript = document.createElement('script'),
+		      firstScript = document.getElementsByTagName('script')[0];
+		  newScript.src = 'https://www.browserscope.org/user/beacon/' + testKey;
+		  firstScript.parentNode.insertBefore(newScript, firstScript);
+		}(document));
 	</script>
 
 </body>
