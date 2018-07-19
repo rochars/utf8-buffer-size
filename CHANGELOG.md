@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.0.5 (2018-07-19)
+- Improve custom UMD header.
+
 ## 0.0.4
 - Fix rollup UMD for use with TypeScript and ES6 default exports.
 
