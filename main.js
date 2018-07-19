@@ -33,12 +33,12 @@
  * Returns how many bytes are needed to serialize a UTF-8 string.
  * @see https://encoding.spec.whatwg.org/#utf-8-encoder
  * @param {string} str The string to pack.
- * @return {number} The number of bytes needed to serialize the string.
+ * @return {string} The number of bytes needed to serialize the string.
  */
 export default function utf8BufferSize(str) {
   /** @type {number} */
   let bytes = 0;
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0, len = str.length; i < len; i++) {
     /** @type {number} */
     let codePoint = str.codePointAt(i);
     if (codePoint < 128) {

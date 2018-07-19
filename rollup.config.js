@@ -7,11 +7,12 @@
  * @see https://github.com/rochars/utf8-buffer-size
  */
 
-import closure from 'rollup-plugin-closure-compiler-js';
+import { terser } from "rollup-plugin-terser";
 import fs from 'fs';
 
-// Externs
-const externsFile = fs.readFileSync('./externs/utf8-buffer-size.js', 'utf8');
+// Load polyfill only in UMD dist
+const codePointAtPolyfill = fs.readFileSync(
+  './node_modules/string.prototype.codepointat/codepointat.js', 'utf8');
 
 // Legal
 const license = '/*!\n'+
@@ -19,52 +20,30 @@ const license = '/*!\n'+
   ' */\n';
 
 export default [
-  // cjs bundle, es bundle
-  {
-    input: 'main.js',
-    output: [
-      {
-        file: 'dist/utf8-buffer-size.cjs.js',
-        name: 'utf8-buffer-size',
-        format: 'cjs',
-        footer: 'module.exports.default = utf8BufferSize;'
-      },
-      {
-        file: 'dist/utf8-buffer-size.js',
-        format: 'es'
-      }
-    ]
-  },
-  // umd bundle
+  // umd bundle includes polyfill for String.codePointAt by @mathiasbynens
+  // @see https://www.npmjs.com/package/string.prototype.codepointat
   {
     input: 'main.js',
     output: [
       {
         file: 'dist/utf8-buffer-size.umd.js',
         name: 'utf8BufferSize',
-        format: 'umd'
-      }
-    ]
-  },  
-  // browser bundle
-  {
-    input: 'main.js',
-    output: [
-      {
-        file: 'dist/utf8-buffer-size.min.js',
-        name: 'utf8buffersize',
-        format: 'iife',
-        banner: license,
-        footer: 'window.utf8BufferSize=utf8buffersize;'
+        format: 'umd',
+        banner: license + codePointAtPolyfill
       }
     ],
     plugins: [
-      closure({
-        languageIn: 'ECMASCRIPT6',
-        languageOut: 'ECMASCRIPT5',
-        compilationLevel: 'ADVANCED',
-        warningLevel: 'VERBOSE',
-        externs: [{src: externsFile}]
+      terser({
+        output: {
+          comments: function(node, comment) {
+            var text = comment.value;
+            var type = comment.type;
+            if (type == "comment2") {
+              // multiline comment
+              return /@preserve|!|@license|@cc_on/i.test(text);
+            }
+          }
+        }
       })
     ]
   }
