@@ -22,7 +22,7 @@ const license = '/*!\n'+
 // Exports as default and as .default so it do not break in TypeScript
 let UMDHeader = "(function (global, factory) {" +
   "typeof exports === 'object' && typeof module !== 'undefined' ? " +
-  "(module.exports = factory(), module.exports.default = factory())  :" +
+  "(module.exports = factory(), module.exports.default = module.exports)  :" +
   "typeof define === 'function' && define.amd ? define(factory) :" +
   "(global.utf8BufferSize = factory());" +
   "}(this, (function () { 'use strict';";
