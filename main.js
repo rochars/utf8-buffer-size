@@ -33,7 +33,7 @@
  * Returns how many bytes are needed to serialize a UTF-8 string.
  * @see https://encoding.spec.whatwg.org/#utf-8-encoder
  * @param {string} str The string to pack.
- * @return {string} The number of bytes needed to serialize the string.
+ * @return {number} The number of bytes needed to serialize the string.
  */
 export default function utf8BufferSize(str) {
   /** @type {number} */
