@@ -12,6 +12,10 @@ let utf8BufferSize;
 if (process.argv[3] == '--umd') {
 	console.log('umd tests');
 	utf8BufferSize = require('../dist/utf8-buffer-size.umd.js');
+	utf8BufferSizeDefault = require('../dist/utf8-buffer-size.umd.js').default;
+	if (utf8BufferSize !== utf8BufferSizeDefault) {
+		//throw new Error('UMD should export as default and as .default');
+	}
 
 // Source
 } else {

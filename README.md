@@ -19,7 +19,7 @@ Return how many bytes are needed to serialize a UTF-8 string.
 npm install utf8-buffer-size
 ```
 
-You can also download one of the files in the *./dist* folder:  
+You can also download the UMD dist file in the *./dist* folder:  
 https://github.com/rochars/utf8-buffer-size/tree/master/dist
 
 ## Use
@@ -40,7 +40,7 @@ let bufferSize = utf8BufferSize('輸輸笠߹~$輸abcd');
 ### Browser
 Use the compiled file in the */dist* folder of this package:
 ```html
-<script src="./dist/utf8-buffer-size.min.js"></script>
+<script src="./dist/utf8-buffer-size.umd.js"></script>
 <script>
   var bufferSize = utf8BufferSize('輸輸笠߹~$輸abcd');
 </script>

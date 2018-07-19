@@ -7,6 +7,6 @@
  * @see https://github.com/rochars/utf8-buffer-size
  */
 
-import utf8BufferSize from '../../main.js';
+import utf8BufferSize from '../../dist/utf8-buffer-size.umd.js';
 
-utf8BufferSize('abc');
+console.log(utf8BufferSize('abc'));

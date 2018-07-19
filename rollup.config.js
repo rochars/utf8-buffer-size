@@ -19,6 +19,15 @@ const license = '/*!\n'+
   ' * Copyright (c) 2018 Rafael da Silva Rocha.\n'+
   ' */\n';
 
+// Exports as default and as .default so it do not break in TypeScript
+let UMDHeader = "(function (global, factory) {" +
+  "typeof exports === 'object' && typeof module !== 'undefined' ? " +
+  "(module.exports = factory(), module.exports.default = factory())  :" +
+  "typeof define === 'function' && define.amd ? define(factory) :" +
+  "(global.utf8BufferSize = factory());" +
+  "}(this, (function () { 'use strict';";
+let UMDFooter = "return utf8BufferSize;})));";
+
 export default [
   // umd bundle includes polyfill for String.codePointAt by @mathiasbynens
   // @see https://www.npmjs.com/package/string.prototype.codepointat
@@ -28,8 +37,9 @@ export default [
       {
         file: 'dist/utf8-buffer-size.umd.js',
         name: 'utf8BufferSize',
-        format: 'umd',
-        banner: license + codePointAtPolyfill
+        format: 'iife',
+        banner: license + codePointAtPolyfill + UMDHeader,
+        footer: UMDFooter
       }
     ],
     plugins: [
